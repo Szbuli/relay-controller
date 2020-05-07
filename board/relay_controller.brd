@@ -166,7 +166,7 @@
 <text x="39" y="30.5" size="0.7" layer="121" rot="R90">GND</text>
 <text x="41.5" y="30.5" size="0.7" layer="121" rot="R90">swdio</text>
 <text x="2.5" y="41.75" size="0.8128" layer="121">R5</text>
-<text x="8" y="42" size="0.8128" layer="121">R2</text>
+<text x="8" y="42" size="0.8128" layer="121">R5</text>
 <text x="36.5" y="46.5" size="0.8128" layer="121" rot="MR270">SHIELD</text>
 <text x="20.5" y="29.5" size="0.8128" layer="121">C6</text>
 <text x="20.15" y="12.2" size="0.8128" layer="121">C6</text>
@@ -1987,6 +1987,8 @@ v1.0</text>
 <text x="58.35" y="26.15" size="1.016" layer="122" rot="MR180">R1</text>
 <text x="58.35" y="21.65" size="1.016" layer="122" rot="MR180">R1</text>
 <text x="51.2" y="33.95" size="0.8128" layer="121">HW-613</text>
+<text x="3" y="48.25" size="0.8128" layer="121">PWR</text>
+<text x="6.5" y="48.25" size="0.8128" layer="121">BUSY</text>
 </plain>
 <libraries>
 <library name="micro-stm">
