@@ -51,6 +51,8 @@
 /* USER CODE END Variables */
 osThreadId canSendTaskHandle;
 osThreadId canReceiveTaskHandle;
+osThreadId tamperTaskHandle;
+osThreadId initTaskHandle;
 osMessageQId CAN_SEND_QUEUEHandle;
 osMessageQId CAN_RECEIVE_QUEUEHandle;
 
@@ -61,6 +63,8 @@ osMessageQId CAN_RECEIVE_QUEUEHandle;
 
 void StartCanTask(void const * argument);
 void StartCanReceiveTask(void const * argument);
+void StartTamperTask(void const * argument);
+void StartInitTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -118,11 +122,11 @@ void MX_FREERTOS_Init(void) {
 
 	/* Create the queue(s) */
 	/* definition and creation of CAN_SEND_QUEUE */
-	osMessageQDef(CAN_SEND_QUEUE, 10, CAN_OBJECT*);
+	osMessageQDef(CAN_SEND_QUEUE, 40, CAN_OBJECT*);
 	CAN_SEND_QUEUEHandle = osMessageCreate(osMessageQ(CAN_SEND_QUEUE), NULL);
 
 	/* definition and creation of CAN_RECEIVE_QUEUE */
-	osMessageQDef(CAN_RECEIVE_QUEUE, 25, RECEIVED_CAN_OBJECT);
+	osMessageQDef(CAN_RECEIVE_QUEUE, 40, RECEIVED_CAN_OBJECT);
 	CAN_RECEIVE_QUEUEHandle = osMessageCreate(osMessageQ(CAN_RECEIVE_QUEUE), NULL);
 
 	/* USER CODE BEGIN RTOS_QUEUES */
@@ -137,6 +141,14 @@ void MX_FREERTOS_Init(void) {
 	/* definition and creation of canReceiveTask */
 	osThreadDef(canReceiveTask, StartCanReceiveTask, osPriorityNormal, 0, 128);
 	canReceiveTaskHandle = osThreadCreate(osThread(canReceiveTask), NULL);
+
+	/* definition and creation of tamperTask */
+	osThreadDef(tamperTask, StartTamperTask, osPriorityIdle, 0, 128);
+	tamperTaskHandle = osThreadCreate(osThread(tamperTask), NULL);
+
+	/* definition and creation of initTask */
+	osThreadDef(initTask, StartInitTask, osPriorityRealtime, 0, 128);
+	initTaskHandle = osThreadCreate(osThread(initTask), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
@@ -154,6 +166,7 @@ void MX_FREERTOS_Init(void) {
 void StartCanTask(void const * argument)
 {
 	/* USER CODE BEGIN StartCanTask */
+	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
 	if (initCan(CAN_SEND_QUEUEHandle, CAN_RECEIVE_QUEUEHandle) != HAL_OK) {
 		home_error(CAN_INIT_FAILED);
 		return;
@@ -174,11 +187,62 @@ void StartCanTask(void const * argument)
 void StartCanReceiveTask(void const * argument)
 {
 	/* USER CODE BEGIN StartCanReceiveTask */
-	/* Infinite loop */
-
+	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
 	//infinite loop inside
 	receiveCANMessageFromQueue();
 	/* USER CODE END StartCanReceiveTask */
+}
+
+/* USER CODE BEGIN Header_StartTamperTask */
+/**
+ * @brief Function implementing the tamperTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartTamperTask */
+void StartTamperTask(void const * argument)
+{
+	/* USER CODE BEGIN StartTamperTask */
+	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
+	initTamper();
+	processTamperEvents();
+	/* USER CODE END StartTamperTask */
+}
+
+/* USER CODE BEGIN Header_StartInitTask */
+/**
+ * @brief Function implementing the initTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartInitTask */
+void StartInitTask(void const * argument)
+{
+	/* USER CODE BEGIN StartInitTask */
+	portDISABLE_INTERRUPTS();
+
+	checkAndDoFactoryResetIfNeeded();
+
+	readConfigOnStartup();
+
+	if (homeConfig.deviceId == 0x0000 || homeConfig.deviceId == 0xFFFF) {
+		homeConfig.listenForDeviceIdMode = 1;
+		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
+		xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
+	} else {
+		homeConfig.listenForDeviceIdMode = 0;
+		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
+		xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
+
+		xTaskNotify(tamperTaskHandle, 0, eNoAction);
+
+		homeConfig.deviceLoaded = 1;
+	}
+
+	portENABLE_INTERRUPTS();
+
+	vTaskDelete(NULL);
+	/* USER CODE END StartInitTask */
 }
 
 /* Private application code --------------------------------------------------*/
