@@ -27,13 +27,14 @@ void blinkRapid() {
 
 void checkAndDoFactoryResetIfNeeded() {
 	GPIO_PinState factoryResetState = HAL_GPIO_ReadPin(FACTORY_RESET_GPIO_Port, FACTORY_RESET_Pin);
-	if (factoryResetState == GPIO_PIN_RESET) {
+	if (factoryResetState == GPIO_PIN_SET) {
 		return;
 	}
 	HAL_GPIO_WritePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin, GPIO_PIN_SET);
 	osDelay(5000);
 	factoryResetState = HAL_GPIO_ReadPin(FACTORY_RESET_GPIO_Port, FACTORY_RESET_Pin);
-	if (factoryResetState == GPIO_PIN_RESET) {
+	if (factoryResetState == GPIO_PIN_SET) {
+		HAL_GPIO_WritePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin, GPIO_PIN_RESET);
 		return;
 	}
 	blinkRapid();
