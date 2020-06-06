@@ -28,6 +28,9 @@
 /* USER CODE BEGIN Includes */
 #include "can_support.h"
 #include "home_log.h"
+#include "home_config.h"
+#include "relay.h"
+#include "tamper.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
