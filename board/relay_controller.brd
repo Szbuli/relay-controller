@@ -8,7 +8,7 @@
 </settings>
 <grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="no" altdistance="0.05" altunitdist="mm" altunit="mm"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
 <layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
 <layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
@@ -81,7 +81,7 @@
 <layer number="102" name="bot_pads" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="103" name="tMap" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="104" name="S_DOKU" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="105" name="tPlate" color="7" fill="1" visible="no" active="yes"/>
+<layer number="105" name="tPlate" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="106" name="bPlate" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="107" name="Crop" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="108" name="tplace-old" color="10" fill="1" visible="yes" active="yes"/>
@@ -160,7 +160,7 @@
 <wire x1="70" y1="0" x2="70" y2="50" width="0" layer="20"/>
 <wire x1="70" y1="50" x2="0" y2="50" width="0" layer="20"/>
 <wire x1="0" y1="50" x2="0" y2="0" width="0" layer="20"/>
-<text x="26.5" y="26.3" size="1.3" layer="122" rot="MR0">SN65</text>
+<text x="21.7" y="29" size="1.3" layer="122" rot="MR270">SN65</text>
 <text x="51.35" y="25.2" size="1.3" layer="122" rot="MR270">AT24</text>
 <text x="36.5" y="30.5" size="0.7" layer="121" rot="R90">swclk</text>
 <text x="39" y="30.5" size="0.7" layer="121" rot="R90">GND</text>
@@ -1997,6 +1997,7 @@ v1.0</text>
 <text x="29.85" y="9.65" size="1.016" layer="122" rot="MR180">R17</text>
 <text x="32.35" y="16.15" size="1.016" layer="122" rot="MR180">C9</text>
 <text x="34.85" y="16.15" size="1.016" layer="122" rot="MR180">R16</text>
+<text x="50.85" y="10.65" size="1.016" layer="122" rot="MR180">R15</text>
 </plain>
 <libraries>
 <library name="micro-stm">
@@ -4161,8 +4162,8 @@ design rules under a new name.</description>
 <via x="12.25" y="35.75" extent="1-16" drill="0.3"/>
 <via x="47.1" y="36.3" extent="1-16" drill="0.3"/>
 <via x="49.75" y="42.2" extent="1-16" drill="0.3"/>
-<via x="47.75" y="43.25" extent="1-16" drill="0.3"/>
-<via x="48.25" y="45.25" extent="1-16" drill="0.3"/>
+<via x="47.25" y="42.25" extent="1-16" drill="0.3"/>
+<via x="48.25" y="47.25" extent="1-16" drill="0.3"/>
 <via x="57.25" y="47.75" extent="1-16" drill="0.3"/>
 <via x="59.25" y="40.25" extent="1-16" drill="0.3"/>
 <via x="58.95" y="35.6" extent="1-16" drill="0.3"/>
@@ -4217,7 +4218,7 @@ design rules under a new name.</description>
 <via x="43" y="9.5" extent="1-16" drill="0.3"/>
 <via x="46.5" y="9.55" extent="1-16" drill="0.3"/>
 <via x="44.75" y="11.3" extent="1-16" drill="0.3"/>
-<via x="50.7" y="15.95" extent="1-16" drill="0.3"/>
+<via x="51.7" y="14.45" extent="1-16" drill="0.3"/>
 <wire x1="50.59" y1="17.51" x2="50.59" y2="18.1" width="0.3048" layer="16"/>
 <wire x1="50.59" y1="18.1" x2="49.4" y2="18.1" width="0.3048" layer="16"/>
 </signal>
