@@ -56,6 +56,7 @@ osThreadId canSendTaskHandle;
 osThreadId canReceiveTaskHandle;
 osThreadId tamperTaskHandle;
 osThreadId initTaskHandle;
+osThreadId heartbeatTaskHandle;
 osMessageQId CAN_SEND_QUEUEHandle;
 osMessageQId CAN_RECEIVE_QUEUEHandle;
 
@@ -68,6 +69,7 @@ void StartCanTask(void const * argument);
 void StartCanReceiveTask(void const * argument);
 void StartTamperTask(void const * argument);
 void StartInitTask(void const * argument);
+void StartHeartbeatTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -153,6 +155,10 @@ void MX_FREERTOS_Init(void) {
 	osThreadDef(initTask, StartInitTask, osPriorityRealtime, 0, 128);
 	initTaskHandle = osThreadCreate(osThread(initTask), NULL);
 
+	/* definition and creation of heartbeatTask */
+	osThreadDef(heartbeatTask, StartHeartbeatTask, osPriorityIdle, 0, 128);
+	heartbeatTaskHandle = osThreadCreate(osThread(heartbeatTask), NULL);
+
 	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
 	/* USER CODE END RTOS_THREADS */
@@ -237,6 +243,7 @@ void StartInitTask(void const * argument)
 		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
 		xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
 
+		xTaskNotify(heartbeatTaskHandle, 0, eNoAction);
 		xTaskNotify(tamperTaskHandle, 0, eNoAction);
 
 		homeConfig.deviceLoaded = 1;
@@ -246,6 +253,31 @@ void StartInitTask(void const * argument)
 
 	vTaskDelete(NULL);
 	/* USER CODE END StartInitTask */
+}
+
+/* USER CODE BEGIN Header_StartHeartbeatTask */
+/**
+ * @brief Function implementing the heartbeatTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
+/* USER CODE END Header_StartHeartbeatTask */
+void StartHeartbeatTask(void const * argument)
+{
+	/* USER CODE BEGIN StartHeartbeatTask */
+	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
+	if (homeConfig.heartbeat != 0) {
+		uint8_t heartbeat = { 0 };
+		for (;;) {
+			HAL_GPIO_TogglePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin);
+
+			putCanMessageToQueue(RELAY_CONTROLLER_HEARTBEAT, &heartbeat, 1, CAN_RTR_DATA);
+			osDelay(5000);
+		}
+	}
+
+	vTaskDelete(NULL);
+	/* USER CODE END StartHeartbeatTask */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -180,7 +180,9 @@ void receiveCANMessageFromQueue() {
 					HAL_NVIC_SystemReset();
 				} else if (typeId == RELAY_CONTROLLER_CONFIGURE_TAMPER) {
 					configureTamper(receivedObject.data0);
-				} else if (typeId == RELAY_CONTROLLER_SET_RELAY_1 || typeId == RELAY_CONTROLLER_SET_RELAY_2
+				} else if (typeId == RELAY_CONTROLLER_CONFIGURE_HEARTBEAT) {
+					configureHeartbeat(receivedObject.data0);
+				}  else if (typeId == RELAY_CONTROLLER_SET_RELAY_1 || typeId == RELAY_CONTROLLER_SET_RELAY_2
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_3 || typeId == RELAY_CONTROLLER_SET_RELAY_4
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_5 || typeId == RELAY_CONTROLLER_SET_RELAY_6
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_7 || typeId == RELAY_CONTROLLER_SET_RELAY_8

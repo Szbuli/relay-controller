@@ -47,16 +47,25 @@ void checkAndDoFactoryResetIfNeeded() {
 void readConfigOnStartup() {
 	homeConfig.deviceId = readByteEEPROM(ADDRESS_DEVICE_ID_PART_0) | readByteEEPROM(ADDRESS_DEVICE_ID_PART_1) << 8;
 	homeConfig.tamper = readByteEEPROM(ADDRESS_TAMPER);
+	homeConfig.heartbeat = readByteEEPROM(ADDRESS_HEARTBEAT);
 }
 
 void factoryReset() {
 	HAL_StatusTypeDef status = writeByteEEPROM(ADDRESS_DEVICE_ID_PART_0, 0xFF);
 	status = writeByteEEPROM(ADDRESS_DEVICE_ID_PART_1, 0xFF);
 	status = writeByteEEPROM(ADDRESS_TAMPER, 0);
+	status = writeByteEEPROM(ADDRESS_HEARTBEAT, 0);
 }
 
 void configureTamper(uint8_t state) {
 	HAL_StatusTypeDef status = writeByteEEPROM(ADDRESS_TAMPER, state);
+
+	osDelay(100);
+	HAL_NVIC_SystemReset();
+}
+
+void configureHeartbeat(uint8_t state) {
+	HAL_StatusTypeDef status = writeByteEEPROM(ADDRESS_HEARTBEAT, state);
 
 	osDelay(100);
 	HAL_NVIC_SystemReset();
