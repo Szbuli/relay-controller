@@ -187,7 +187,7 @@ void receiveCANMessageFromQueue() {
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_9 || typeId == RELAY_CONTROLLER_SET_RELAY_10
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_11 || typeId == RELAY_CONTROLLER_SET_RELAY_12
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_13 || typeId == RELAY_CONTROLLER_SET_RELAY_14
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_15) {
+						|| typeId == RELAY_CONTROLLER_SET_RELAY_15 || typeId == RELAY_CONTROLLER_SET_RELAY_16) {
 					handleRelayEvent(typeId, receivedObject.data0);
 				}
 			}
