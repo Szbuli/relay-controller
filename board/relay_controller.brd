@@ -167,7 +167,7 @@
 <text x="41.5" y="30.5" size="0.7" layer="121" rot="R90">swdio</text>
 <text x="3.85" y="39.35" size="0.8128" layer="121">R5</text>
 <text x="6.45" y="39.3" size="0.8128" layer="121">R5</text>
-<text x="36.5" y="46.5" size="0.8128" layer="121" rot="MR270">SHIELD</text>
+<text x="1.5" y="48" size="0.8128" layer="122" rot="MR180">SHIELD</text>
 <text x="20.5" y="29.5" size="0.8128" layer="121">C6</text>
 <text x="20.15" y="12.2" size="0.8128" layer="121">C6</text>
 <text x="22.5" y="25.5" size="0.8128" layer="121">C7</text>
@@ -2003,6 +2003,7 @@ v1.1</text>
 <text x="49.2" y="48.2" size="1.016" layer="121">3.3V</text>
 <text x="8.95" y="36.3" size="1.016" layer="121">CAN
 PWR</text>
+<text x="60.2" y="35.7" size="1.016" layer="121">D6</text>
 </plain>
 <libraries>
 <library name="micro-stm">
@@ -3786,6 +3787,27 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package>
 </packages>
 </library>
+<library name="varistor">
+<description>&lt;b&gt;Varistors/Thermistors&lt;/b&gt;&lt;p&gt;
+Block, Siemens and generic&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="CT/CN0603">
+<description>&lt;b&gt;EPCOS SMD Varistors, MLV; Standard Series&lt;/b&gt;&lt;p&gt;
+Source: www.farnell.com/datasheets/49238.pdf</description>
+<wire x1="-0.75" y1="0.35" x2="0.75" y2="0.35" width="0.1016" layer="51"/>
+<wire x1="0.75" y1="0.35" x2="0.75" y2="-0.35" width="0.1016" layer="51"/>
+<wire x1="0.75" y1="-0.35" x2="-0.75" y2="-0.35" width="0.1016" layer="51"/>
+<wire x1="-0.75" y1="-0.35" x2="-0.75" y2="0.35" width="0.1016" layer="51"/>
+<smd name="1" x="-1" y="0" dx="1" dy="1" layer="1"/>
+<smd name="2" x="1" y="0" dx="1" dy="1" layer="1"/>
+<text x="-1.5" y="1" size="1.016" layer="25">&gt;NAME</text>
+<text x="-1.5" y="-2" size="1.016" layer="27">&gt;VALUE</text>
+<rectangle x1="-0.75" y1="-0.35" x2="-0.4" y2="0.35" layer="51"/>
+<rectangle x1="0.4" y1="-0.35" x2="0.75" y2="0.35" layer="51" rot="R180"/>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -4003,7 +4025,7 @@ design rules under a new name.</description>
 <attribute name="MF" value="" x="29.94" y="44.53" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R24" library="rcl" package="R0603" value="0" x="29.69" y="29.31" rot="MR180"/>
-<element name="R25" library="rcl" package="R0603" value="10k" x="37.69" y="45.23" rot="MR270"/>
+<element name="R25" library="rcl" package="R0603" value="10k" x="7.23" y="47.81" rot="MR0"/>
 <element name="D5" library="diode" package="SOT23" value="PESD1CAN" x="44.8" y="33.58" rot="MR180"/>
 <element name="R27" library="rcl" package="R0603" value="4k7" x="56.57" y="25.64" rot="MR90"/>
 <element name="R3" library="rcl" package="R0603" value="4k7" x="56.51" y="21.36" rot="MR270"/>
@@ -4068,6 +4090,7 @@ design rules under a new name.</description>
 <attribute name="PROD_ID" value="CONN-08288" x="51" y="44.5" size="1.778" layer="27" display="off"/>
 </element>
 <element name="JP1" library="jumper" package="JP1" value="" x="10.5" y="41.5" rot="R180"/>
+<element name="R7" library="varistor" package="CT/CN0603" value="VARISTORCN0603" x="61" y="39" rot="R90"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -4177,11 +4200,11 @@ design rules under a new name.</description>
 <via x="12.25" y="15.75" extent="1-16" drill="0.3"/>
 <via x="8.25" y="35.75" extent="1-16" drill="0.3"/>
 <via x="6.4" y="35.1" extent="1-16" drill="0.3"/>
-<via x="9.75" y="47.75" extent="1-16" drill="0.3"/>
+<via x="10.2" y="46.6" extent="1-16" drill="0.3"/>
 <via x="10.75" y="45.25" extent="1-16" drill="0.3"/>
 <via x="12.25" y="35.75" extent="1-16" drill="0.3"/>
 <via x="53.1" y="33.8" extent="1-16" drill="0.3"/>
-<via x="59.75" y="38.2" extent="1-16" drill="0.3"/>
+<via x="58.75" y="38.7" extent="1-16" drill="0.3"/>
 <via x="47.75" y="44.25" extent="1-16" drill="0.3"/>
 <via x="48.25" y="47.25" extent="1-16" drill="0.3"/>
 <via x="51.8" y="47.1" extent="1-16" drill="0.3"/>
@@ -4243,7 +4266,7 @@ design rules under a new name.</description>
 <contactref element="J1" pad="3"/>
 <contactref element="X2" pad="8"/>
 <contactref element="X1" pad="8"/>
-<wire x1="37.69" y1="44.38" x2="39.405" y2="38.15" width="0" layer="19" extent="16-16"/>
+<contactref element="R7" pad="1"/>
 </signal>
 <signal name="+3V3">
 <contactref element="C2" pad="1"/>
@@ -4384,8 +4407,11 @@ design rules under a new name.</description>
 <wire x1="54.27" y1="38.39" x2="54.27" y2="41.1" width="0.6096" layer="1"/>
 <wire x1="54.27" y1="41.1" x2="58.6" y2="41.1" width="0.6096" layer="1"/>
 <wire x1="58.6" y1="41.1" x2="59.5" y2="42" width="0.6096" layer="1"/>
-<wire x1="59.5" y1="42" x2="63.9" y2="42" width="0.6096" layer="1"/>
+<wire x1="59.5" y1="42" x2="61" y2="42" width="0.6096" layer="1"/>
+<wire x1="61" y1="42" x2="63.9" y2="42" width="0.6096" layer="1"/>
 <wire x1="63.9" y1="42" x2="65" y2="43.1" width="0.6096" layer="1"/>
+<contactref element="R7" pad="2"/>
+<wire x1="61" y1="40" x2="61" y2="42" width="0.6096" layer="1"/>
 </signal>
 <signal name="N$1">
 <contactref element="8MHZ" pad="2"/>
@@ -4529,10 +4555,11 @@ design rules under a new name.</description>
 <wire x1="12.922" y1="47.578" x2="29.178" y2="47.578" width="0.6096" layer="16"/>
 <wire x1="29.178" y1="47.578" x2="29.372" y2="47.578" width="0.6096" layer="16"/>
 <wire x1="29.372" y1="47.578" x2="29.372" y2="47.548" width="0.6096" layer="16"/>
-<wire x1="29.372" y1="47.548" x2="38" y2="47.548" width="0.6096" layer="16"/>
-<wire x1="38" y1="47.548" x2="45.628" y2="47.548" width="0.6096" layer="16"/>
-<wire x1="37.69" y1="46.08" x2="37.69" y2="47.238" width="0.6096" layer="16"/>
-<wire x1="37.69" y1="47.238" x2="38" y2="47.548" width="0.6096" layer="16"/>
+<wire x1="29.372" y1="47.548" x2="45.628" y2="47.548" width="0.6096" layer="16"/>
+<wire x1="8.08" y1="47.81" x2="10.19" y2="47.81" width="0.4064" layer="16"/>
+<wire x1="10.19" y1="47.81" x2="10.35" y2="47.6" width="0.4064" layer="16"/>
+<wire x1="10.35" y1="47.6" x2="10.578" y2="47.578" width="0.4064" layer="16"/>
+<wire x1="10.578" y1="47.578" x2="12.922" y2="47.578" width="0.4064" layer="16"/>
 </signal>
 <signal name="I2C1_SDA">
 <contactref element="R27" pad="1"/>
