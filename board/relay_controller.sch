@@ -17802,7 +17802,7 @@ Source: http://www.mouser.com/ds/2/392/products_18-2245.pdf</description>
 <part name="R17" library="resistor" deviceset="R-EU_" device="R0603"/>
 <part name="R18" library="resistor" deviceset="R-EU_" device="R0603"/>
 <part name="R19" library="resistor" deviceset="R-EU_" device="R0603"/>
-<part name="R20" library="resistor" deviceset="R-EU_" device="R0603"/>
+<part name="R20" library="resistor" deviceset="R-EU_" device="R0603" value="100"/>
 <part name="R21" library="resistor" deviceset="R-EU_" device="R0603"/>
 <part name="R22" library="resistor" deviceset="R-EU_" device="R0603"/>
 <part name="R23" library="resistor" deviceset="R-EU_" device="R0603"/>
