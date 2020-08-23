@@ -272,7 +272,7 @@ void StartHeartbeatTask(void const * argument)
 			HAL_GPIO_TogglePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin);
 
 			putCanMessageToQueue(RELAY_CONTROLLER_HEARTBEAT, &heartbeat, 1, CAN_RTR_DATA);
-			osDelay(5000);
+			osDelay(30000);
 		}
 	}
 
