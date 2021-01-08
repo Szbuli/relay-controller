@@ -27,7 +27,7 @@ HAL_StatusTypeDef initCan(osMessageQId canQueueHandleArgument, osMessageQId CAN_
 	canQueueHandle = canQueueHandleArgument;
 	CAN_RECEIVE_QUEUEHandle = CAN_RECEIVE_QUEUEHandleArgument;
 
-	if ( CAN_RECEIVE_QUEUEHandle == NULL) {
+	if (CAN_RECEIVE_QUEUEHandle == NULL) {
 		home_error(CAN_RX_QUEUE_CANNOT_BE_CREATED);
 		/* Queue was not created and must not be used. */
 		return HAL_ERROR;
@@ -83,11 +83,11 @@ HAL_StatusTypeDef initCan(osMessageQId canQueueHandleArgument, osMessageQId CAN_
 	return HAL_OK;
 }
 
-CAN_OBJECT * wrapCanMessage(uint32_t stdId, uint8_t *dataArray, uint8_t dataLength, uint8_t RTR) {
+CAN_OBJECT* wrapCanMessage(uint32_t stdId, uint8_t *dataArray, uint8_t dataLength, uint8_t RTR) {
 	assert_param(dataLength <= 8);
 
 	vTaskSuspendAll();
-	uint8_t *array = (uint8_t *) pvPortMalloc(dataLength * sizeof(uint8_t));
+	uint8_t *array = (uint8_t*) pvPortMalloc(dataLength * sizeof(uint8_t));
 
 	for (uint8_t i = 0; i < dataLength; i++) {
 		array[i] = dataArray[i];
@@ -143,9 +143,7 @@ void sendCANMessageFromQueue() {
 				TxHeader.DLC = canObjectPointer->DLC;
 				TxHeader.RTR = canObjectPointer->RTR;
 
-				//HAL_StatusTypeDef status = HAL_CAN_Transmit(&MY_CAN, 100);
-
-				HAL_StatusTypeDef status = HAL_CAN_AddTxMessage(&MY_CAN, &TxHeader, TxData, &TxMailbox);
+				HAL_CAN_AddTxMessage(&MY_CAN, &TxHeader, TxData, &TxMailbox);
 
 				//just free now, error handling required
 				vPortFree(canObjectPointer->data);
@@ -168,8 +166,8 @@ void receiveCANMessageFromQueue() {
 				if (homeConfig.listenForDeviceIdMode != 0) {
 					if (typeId == RELAY_CONTROLLER_DEVICE_ID) {
 						factoryReset();
-						HAL_StatusTypeDef status = writeByteEEPROM(ADDRESS_DEVICE_ID_PART_0, receivedObject.data0);
-						status = writeByteEEPROM(ADDRESS_DEVICE_ID_PART_1, receivedObject.data1);
+						writeByteEEPROM(ADDRESS_DEVICE_ID_PART_0, receivedObject.data0);
+						writeByteEEPROM(ADDRESS_DEVICE_ID_PART_1, receivedObject.data1);
 						osDelay(100);
 						HAL_NVIC_SystemReset();
 					}
@@ -182,14 +180,9 @@ void receiveCANMessageFromQueue() {
 					configureTamper(receivedObject.data0);
 				} else if (typeId == RELAY_CONTROLLER_CONFIGURE_HEARTBEAT) {
 					configureHeartbeat(receivedObject.data0);
-				}  else if (typeId == RELAY_CONTROLLER_SET_RELAY_1 || typeId == RELAY_CONTROLLER_SET_RELAY_2
+				} else if (typeId == RELAY_CONTROLLER_SET_RELAY_1 || typeId == RELAY_CONTROLLER_SET_RELAY_2
 						|| typeId == RELAY_CONTROLLER_SET_RELAY_3 || typeId == RELAY_CONTROLLER_SET_RELAY_4
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_5 || typeId == RELAY_CONTROLLER_SET_RELAY_6
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_7 || typeId == RELAY_CONTROLLER_SET_RELAY_8
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_9 || typeId == RELAY_CONTROLLER_SET_RELAY_10
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_11 || typeId == RELAY_CONTROLLER_SET_RELAY_12
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_13 || typeId == RELAY_CONTROLLER_SET_RELAY_14
-						|| typeId == RELAY_CONTROLLER_SET_RELAY_15 || typeId == RELAY_CONTROLLER_SET_RELAY_16) {
+						|| typeId == RELAY_CONTROLLER_SET_RELAY_5) {
 					handleRelayEvent(typeId, receivedObject.data0);
 				}
 			}
