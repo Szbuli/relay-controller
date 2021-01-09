@@ -15,9 +15,9 @@
 void handleRelayEvent(uint16_t typeId, uint8_t state) {
 	GPIO_PinState pinState;
 	if (state == 0) {
-		pinState = GPIO_PIN_SET;
-	} else {
 		pinState = GPIO_PIN_RESET;
+	} else {
+		pinState = GPIO_PIN_SET;
 	}
 
 	if (typeId == RELAY_CONTROLLER_SET_RELAY_1) {
