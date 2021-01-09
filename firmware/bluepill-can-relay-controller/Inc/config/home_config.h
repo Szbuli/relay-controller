@@ -1,7 +1,7 @@
 /*
  * home_config.h
  *
- *  Created on: 2017. máj. 23.
+ *  Created on: 2017.05.23.
  *      Author: Szbuli
  */
 

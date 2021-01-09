@@ -1,7 +1,7 @@
 /*
  * eeprom.c
  *
- *  Created on: 2017. m�rc. 31.
+ *  Created on: 2017.03.31.
  *      Author: Szbuli
  */
 

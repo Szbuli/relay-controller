@@ -1,7 +1,7 @@
 /*
  * can-ids.h
  *
- *  Created on: 2020. �pr. 29.
+ *  Created on: 2020.04.29.
  *      Author: Szbuli
  */
 

@@ -1,7 +1,7 @@
 /*
  * relay.c
  *
- *  Created on: 2020. m�j. 13.
+ *  Created on: 2020.05.13.
  *      Author: Szbuli
  */
 

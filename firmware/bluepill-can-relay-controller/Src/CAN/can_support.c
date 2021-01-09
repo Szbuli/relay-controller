@@ -1,7 +1,7 @@
 /*
  * can_support.c
  *
- *  Created on: 2017. jan. 4.
+ *  Created on: 2017.01.04.
  *      Author: Szbuli
  */
 
