@@ -1,7 +1,7 @@
 /*
  * relay.h
  *
- *  Created on: 2020. máj. 13.
+ *  Created on: 2020.05.13.
  *      Author: Szbuli
  */
 

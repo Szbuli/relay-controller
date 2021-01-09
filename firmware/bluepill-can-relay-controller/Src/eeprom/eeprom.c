@@ -1,7 +1,7 @@
 /*
  * eeprom.c
  *
- *  Created on: 2017. márc. 31.
+ *  Created on: 2017.03.31.
  *      Author: Szbuli
  */
 
@@ -10,7 +10,7 @@
 
 void pingEEPROM() {
 	uint8_t buffer = 0;
-	HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&EEPROM_I2C, ((uint16_t) EEPROM_I2C_ADDRESS << 1), &buffer, 1, (uint32_t) 100);
+	HAL_I2C_Master_Transmit(&EEPROM_I2C, ((uint16_t) EEPROM_I2C_ADDRESS << 1), &buffer, 1, (uint32_t) 100);
 }
 
 uint8_t readByteEEPROM(uint16_t address) {

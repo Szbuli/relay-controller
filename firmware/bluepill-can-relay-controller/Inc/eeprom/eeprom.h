@@ -1,7 +1,7 @@
 /*
  * eeprom.h
  *
- *  Created on: 2017. márc. 31.
+ *  Created on: 2017.03.31.
  *      Author: Szbuli
  */
 
