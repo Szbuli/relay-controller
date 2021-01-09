@@ -31,6 +31,7 @@
 #include "home_config.h"
 #include "relay.h"
 #include "tamper.h"
+#include "ha_auto_discovery.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -243,6 +244,8 @@ void StartInitTask(void const *argument) {
 	}
 
 	portENABLE_INTERRUPTS();
+
+	publishConfigForAutoDiscovery();
 
 	vTaskDelete(NULL);
 	/* USER CODE END StartInitTask */
