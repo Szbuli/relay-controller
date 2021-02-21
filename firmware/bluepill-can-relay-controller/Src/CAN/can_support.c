@@ -143,6 +143,10 @@ void sendCANMessageFromQueue() {
 				TxHeader.DLC = canObjectPointer->DLC;
 				TxHeader.RTR = canObjectPointer->RTR;
 
+				while (HAL_CAN_GetTxMailboxesFreeLevel(&MY_CAN) == 0) {
+					osDelay(10);
+				}
+
 				HAL_CAN_AddTxMessage(&MY_CAN, &TxHeader, TxData, &TxMailbox);
 
 				//just free now, error handling required
