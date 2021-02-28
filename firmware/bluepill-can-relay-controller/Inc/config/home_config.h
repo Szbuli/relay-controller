@@ -18,6 +18,12 @@
 #define STM32_UUID_32 ((uint32_t *)0x1FFF7A10)
 #define STM32_UUID_16 ((uint16_t *)0x1FFF7A10)
 
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 0
+#define VERSION_PATCH 0
+
+#define DEVICE_TYPE_ID_ALARM_CONTROLLER 2
+
 typedef struct {
 	uint8_t listenForDeviceIdMode;
 	uint8_t deviceLoaded;

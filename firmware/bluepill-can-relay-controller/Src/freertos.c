@@ -31,6 +31,7 @@
 #include "home_config.h"
 #include "relay.h"
 #include "tamper.h"
+#include "ha_auto_discovery.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -172,11 +173,6 @@ void MX_FREERTOS_Init(void) {
 void StartCanTask(void const *argument) {
 	/* USER CODE BEGIN StartCanTask */
 	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
-	if (initCan(CAN_SEND_QUEUEHandle, CAN_RECEIVE_QUEUEHandle) != HAL_OK) {
-		home_error(CAN_INIT_FAILED);
-		return;
-	}
-
 	//infinite loop inside
 	sendCANMessageFromQueue();
 	/* USER CODE END StartCanTask */
@@ -227,6 +223,11 @@ void StartInitTask(void const *argument) {
 
 	readConfigOnStartup();
 
+	if (initCan(CAN_SEND_QUEUEHandle, CAN_RECEIVE_QUEUEHandle) != HAL_OK) {
+		home_error(CAN_INIT_FAILED);
+		return;
+	}
+
 	if (homeConfig.deviceId == 0x0000 || homeConfig.deviceId == 0xFFFF) {
 		homeConfig.listenForDeviceIdMode = 1;
 		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
@@ -243,6 +244,8 @@ void StartInitTask(void const *argument) {
 	}
 
 	portENABLE_INTERRUPTS();
+
+	publishConfigForAutoDiscovery();
 
 	vTaskDelete(NULL);
 	/* USER CODE END StartInitTask */
