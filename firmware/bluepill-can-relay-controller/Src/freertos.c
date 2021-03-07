@@ -223,19 +223,20 @@ void StartInitTask(void const *argument) {
 
 	readConfigOnStartup();
 
+	if (homeConfig.deviceId == 0x0000 || homeConfig.deviceId == 0xFFFF) {
+		homeConfig.listenForDeviceIdMode = 1;
+	}
+
 	if (initCan(CAN_SEND_QUEUEHandle, CAN_RECEIVE_QUEUEHandle) != HAL_OK) {
 		home_error(CAN_INIT_FAILED);
 		return;
 	}
 
-	if (homeConfig.deviceId == 0x0000 || homeConfig.deviceId == 0xFFFF) {
-		homeConfig.listenForDeviceIdMode = 1;
-		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
-		xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
-	} else {
-		homeConfig.listenForDeviceIdMode = 0;
-		xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
-		xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
+	xTaskNotify(canSendTaskHandle, 0, eNoAction);	//must be first
+	xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
+
+	if (homeConfig.listenForDeviceIdMode == 0) {
+		xTaskNotify(adcTaskHandle, 0, eNoAction);
 
 		xTaskNotify(heartbeatTaskHandle, 0, eNoAction);
 		xTaskNotify(tamperTaskHandle, 0, eNoAction);
