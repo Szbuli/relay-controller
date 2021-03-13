@@ -10924,7 +10924,6 @@ chip</description>
 <part name="C4" library="microbuilder" deviceset="CAP_CERAMIC" device="0603" value="33pf"/>
 <part name="C10" library="microbuilder" deviceset="CAP_CERAMIC" device="0603" value="33pf"/>
 <part name="C2" library="microbuilder" deviceset="CAP_CERAMIC" device="0603" value="10nF"/>
-<part name="F4" library="SparkFun-Fuses" deviceset="PPTC" device="_HALF-AMP" value="6V/0.5A"/>
 </parts>
 <sheets>
 <sheet>
@@ -11036,7 +11035,6 @@ chip</description>
 <instance part="C4" gate="G$1" x="-55.88" y="66.04" rot="R90"/>
 <instance part="C10" gate="G$1" x="-55.88" y="60.96" rot="R90"/>
 <instance part="C2" gate="G$1" x="-198.12" y="71.12"/>
-<instance part="F4" gate="G$1" x="114.3" y="12.7"/>
 </instances>
 <busses>
 </busses>
