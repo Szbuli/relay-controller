@@ -11731,8 +11731,8 @@ chip</description>
 <net name="N$10" class="0">
 <segment>
 <pinref part="R60" gate="G$1" pin="1"/>
-<wire x1="-182.88" y1="63.5" x2="-175.26" y2="63.5" width="0.1524" layer="91"/>
-<pinref part="J2" gate="G$1" pin="2"/>
+<wire x1="-182.88" y1="63.5" x2="-175.26" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="J2" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -11741,11 +11741,11 @@ chip</description>
 <pinref part="R59" gate="G$1" pin="1"/>
 <wire x1="-182.88" y1="66.04" x2="-198.12" y2="66.04" width="0.1524" layer="91"/>
 <junction x="-182.88" y="66.04"/>
-<wire x1="-175.26" y1="66.04" x2="-182.88" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-175.26" y1="63.5" x2="-182.88" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="R62" gate="G$1" pin="1"/>
 <wire x1="-203.2" y1="66.04" x2="-198.12" y2="66.04" width="0.1524" layer="91"/>
 <junction x="-198.12" y="66.04"/>
-<pinref part="J2" gate="G$1" pin="1"/>
+<pinref part="J2" gate="G$1" pin="2"/>
 <pinref part="C2" gate="G$1" pin="P$2"/>
 </segment>
 </net>
