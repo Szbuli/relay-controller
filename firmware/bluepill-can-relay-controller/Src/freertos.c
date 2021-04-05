@@ -236,8 +236,6 @@ void StartInitTask(void const *argument) {
 	xTaskNotify(canReceiveTaskHandle, 0, eNoAction);
 
 	if (homeConfig.listenForDeviceIdMode == 0) {
-		xTaskNotify(adcTaskHandle, 0, eNoAction);
-
 		xTaskNotify(heartbeatTaskHandle, 0, eNoAction);
 		xTaskNotify(tamperTaskHandle, 0, eNoAction);
 
