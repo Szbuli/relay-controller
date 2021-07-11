@@ -54,7 +54,7 @@ void factoryReset() {
 	writeByteEEPROM(ADDRESS_DEVICE_ID_PART_0, 0xFF);
 	writeByteEEPROM(ADDRESS_DEVICE_ID_PART_1, 0xFF);
 	writeByteEEPROM(ADDRESS_TAMPER, 0);
-	writeByteEEPROM(ADDRESS_HEARTBEAT, 0);
+	writeByteEEPROM(ADDRESS_HEARTBEAT, 1);
 }
 
 void configureTamper(uint8_t state) {
