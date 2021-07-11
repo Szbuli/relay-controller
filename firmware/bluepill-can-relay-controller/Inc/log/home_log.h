@@ -10,6 +10,7 @@
 #define CAN_TX_QUEUE_FULL 16
 #define CAN_RX_QUEUE_FULL 17
 #define CAN_FAILED_RX 21
+#define CAN_FAILED_TX 22
 
 extern uint8_t home_debug_mode;
 

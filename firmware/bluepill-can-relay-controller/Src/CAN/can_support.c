@@ -147,7 +147,10 @@ void sendCANMessageFromQueue() {
 					osDelay(10);
 				}
 
-				HAL_CAN_AddTxMessage(&MY_CAN, &TxHeader, TxData, &TxMailbox);
+				HAL_StatusTypeDef status = HAL_CAN_AddTxMessage(&MY_CAN, &TxHeader, TxData, &TxMailbox);
+				if (status != HAL_OK) {
+					home_error(CAN_FAILED_TX);
+				}
 
 				//just free now, error handling required
 				vPortFree(canObjectPointer->data);
