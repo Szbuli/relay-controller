@@ -260,17 +260,21 @@ void StartInitTask(void const *argument) {
 void StartHeartbeatTask(void const *argument) {
 	/* USER CODE BEGIN StartHeartbeatTask */
 	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
-	if (homeConfig.heartbeat != 0) {
-		uint8_t heartbeat = { 0 };
-		for (;;) {
+
+	uint8_t heartbeat = { 0 };
+	uint8_t i = 0;
+	for (;;) {
+		osDelay(1000);
+		if (homeConfig.heartbeat != 0) {
 			HAL_GPIO_TogglePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin);
-
-			putCanMessageToQueue(RELAY_CONTROLLER_HEARTBEAT, &heartbeat, 1, CAN_RTR_DATA);
-			osDelay(30000);
 		}
-	}
+		if (i == 29) {
+			putCanMessageToQueue(RELAY_CONTROLLER_HEARTBEAT, &heartbeat, 1, CAN_RTR_DATA);
+			i = 0;
+		}
 
-	vTaskDelete(NULL);
+		i++;
+	}
 	/* USER CODE END StartHeartbeatTask */
 }
 
