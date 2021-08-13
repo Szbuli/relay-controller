@@ -262,7 +262,7 @@ void StartHeartbeatTask(void const *argument) {
 	xTaskNotifyWait(0x00, 0x00, NULL, portMAX_DELAY);
 
 	uint8_t heartbeat = { 0 };
-	uint8_t i = 0;
+	uint8_t i = 29;
 	for (;;) {
 		osDelay(1000);
 		if (homeConfig.heartbeat != 0) {
